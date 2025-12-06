@@ -1,0 +1,56 @@
+secure-infra-prompts/
+├── README.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── .github/
+│   ├── workflows/
+│   │   └── validate-prompts.yml
+│   └── ISSUE_TEMPLATE/
+├── terraform/
+│   ├── aws/
+│   │   ├── terraform-aws-security.md
+│   │   ├── terraform-aws-networking.md
+│   │   ├── terraform-aws-compute.md
+│   │   └── terraform-aws-data.md
+│   ├── azure/
+│   │   ├── terraform-azure-security.md
+│   │   └── terraform-azure-networking.md
+│   ├── gcp/
+│   │   ├── terraform-gcp-security.md
+│   │   └── terraform-gcp-networking.md
+│   └── multi-cloud/
+│       └── terraform-multi-cloud-security.md
+├── aws/
+│   ├── aws-cli-security.md
+│   ├── aws-cloudformation-security.md
+│   ├── aws-cdk-security.md
+│   └── aws-sam-security.md
+├── kubernetes/
+│   ├── k8s-security.md
+│   ├── helm-security.md
+│   └── kustomize-security.md
+├── docker/
+│   ├── dockerfile-security.md
+│   └── docker-compose-security.md
+├── ansible/
+│   ├── ansible-security.md
+│   └── ansible-vault-security.md
+├── pulumi/
+│   ├── pulumi-aws-security.md
+│   └── pulumi-security-general.md
+├── security/
+│   ├── iac-security-review.md
+│   ├── compliance-frameworks.md
+│   ├── secret-management.md
+│   └── vulnerability-scanning.md
+├── monitoring/
+│   ├── observability-security.md
+│   └── logging-security.md
+├── examples/
+│   ├── secure-aws-vpc/
+│   ├── secure-k8s-cluster/
+│   └── multi-tier-app/
+└── docs/
+    ├── ai-tools-compatibility.md
+    ├── prompt-engineering-best-practices.md
+    └── security-checklist.md
