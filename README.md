@@ -96,17 +96,7 @@ Please ensure your prompts are:
 
 ## 👥 Maintainers
 
-<table>
-<tr>
-<td align="center">
-<a href="https://github.com/uttej-badwane">
-<img src="https://github.com/uttej-badwane.png" width="100px;" alt="Uttej Badwane"/><br />
-<sub><b>Uttej Badwane</b></sub>
-</a><br />
-<sub>Repository Owner & Primary Maintainer</sub>
-</td>
-</tr>
-</table>
+- [@uttej-badwane](https://github.com/uttej-badwane) - Repository Owner & Primary Maintainer
 
 ---
 
@@ -123,4 +113,3 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 *Made with ❤️ for the Security & DevOps Community*
 
 </div>
-
