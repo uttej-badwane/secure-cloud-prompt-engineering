@@ -1,0 +1,11 @@
+# Security Prompt Engineering Repository Code Owners
+# These owners will be automatically requested for review when someone opens a pull request
+
+# Global ownership - all files
+* @uttej-badwane
+
+# Specific areas (adjust username as needed)
+/terraform/ @uttej-badwane
+/kubernetes/ @uttej-badwane
+/docker/ @uttej-badwane
+/security/ @uttej-badwane
