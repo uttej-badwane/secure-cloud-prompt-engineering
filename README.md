@@ -36,6 +36,10 @@ This repository provides security engineers and DevOps teams with prompt templat
 
 Contributions are welcome! Please ensure prompts are concise, security-focused, and follow the 40-line maximum guideline.
 
+## Maintainers
+
+- [@uttej-badwane](https://github.com/uttej-badwane) - Repository Owner & Primary Maintainer
+
 ## License
 
 MIT License - See LICENSE file for details
