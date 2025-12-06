@@ -1,20 +1,14 @@
-<div align="center">
-
 # 🔐 Secure Cloud Prompt Engineering
 
-### *AI-Powered Infrastructure Security at Your Fingertips*
-
-A curated collection of security-focused prompts and instructions for AI-assisted Infrastructure as Code (IaC) development.
+A collection of security-focused prompts for AI-assisted Infrastructure as Code (IaC) development.
 
 ---
 
-</div>
-
 ## 🎯 Purpose
 
-This repository provides **security engineers** and **DevOps teams** with expertly crafted prompt templates to guide AI tools in generating secure cloud infrastructure code that follows industry security best practices.
+Prompt templates to guide AI tools in generating secure cloud infrastructure code following security best practices.
 
-Whether you're working with Terraform, Kubernetes, Docker, or cloud-native services, these prompts ensure your AI-generated code meets enterprise security standards from day one.
+Covers Terraform, Kubernetes, Docker, and cloud-native services with a focus on security controls and compliance.
 
 ---
 
@@ -34,63 +28,33 @@ Whether you're working with Terraform, Kubernetes, Docker, or cloud-native servi
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Usage
 
-Follow these steps to leverage AI for secure infrastructure code generation:
+1. Select the prompt file for your technology stack
+2. Copy the prompt content
+3. Provide it to your AI assistant with your specific requirements
+4. Review and validate the generated code
 
-1. **📋 Select** the appropriate prompt file for your technology stack
-2. **📝 Copy** the prompt content from the relevant directory
-3. **🤖 Provide** it to your AI assistant along with your specific requirements
-4. **✅ Review** and validate the generated code against security standards
-
-> **💡 Pro Tip:** Always review AI-generated code with security scanning tools and manual audits before deploying to production.
+**Note:** Always scan and audit AI-generated code before production deployment.
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-<table>
-<tr>
-<td width="50%">
-
-### 🔒 **Security-First**
-All prompts emphasize security controls, least privilege, and defense-in-depth principles
-
-</td>
-<td width="50%">
-
-### ☁️ **Multi-Cloud**
-Comprehensive coverage for AWS, Azure, and Google Cloud Platform
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### 📋 **Compliance-Aware**
-Incorporates CIS benchmarks, NIST frameworks, and PCI-DSS requirements
-
-</td>
-<td width="50%">
-
-### 🏢 **Production-Ready**
-Enterprise-grade security patterns and battle-tested configurations
-
-</td>
-</tr>
-</table>
+- **Security-first approach** - Emphasizes least privilege, defense-in-depth, and security controls
+- **Multi-cloud support** - AWS, Azure, and GCP
+- **Compliance frameworks** - CIS benchmarks, NIST, PCI-DSS
+- **Production patterns** - Enterprise security configurations
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are **welcome** and **appreciated**!
-
-Please ensure your prompts are:
-- ✅ Concise and well-documented
-- ✅ Security-focused with clear threat models
-- ✅ Following the 40-line maximum guideline
-- ✅ Tested with popular AI assistants
+Contributions are welcome. Please ensure prompts are:
+- Concise and well-documented
+- Security-focused with clear threat models
+- Under 40 lines
+- Tested with popular AI assistants
 
 ---
 
@@ -116,11 +80,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-<div align="center">
-
 **⭐ If you find this repository helpful, please consider giving it a star!**
 
 *Made with ❤️ for the Security & DevOps Community*
-
-</div>
 
