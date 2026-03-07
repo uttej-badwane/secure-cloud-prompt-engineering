@@ -2,6 +2,8 @@
 
 A collection of security-focused prompts for AI-assisted Infrastructure as Code (IaC) development.
 
+> **Now available as a Claude Code skill!** Install in one command and get automated IaC security reviews directly in your editor. See [Quick Start](#-quick-start) below.
+
 ---
 
 ## 🎯 Purpose
@@ -12,10 +14,41 @@ Covers Terraform, Kubernetes, Docker, and cloud-native services with a focus on 
 
 ---
 
+## Quick Start — Claude Code Skill
+
+Install the IaC Security Review skill into Claude Code:
+
+```bash
+cp -r skills/iac-security-review ~/.claude/skills/
+```
+
+Then open Claude Code in any repo that has IaC files and try one of these prompts:
+
+```
+Review my Terraform for security issues
+Audit this Kubernetes manifest against CIS benchmarks
+Check this Dockerfile for vulnerabilities and give me fixes
+Scan my GitHub Actions workflow — flag any supply chain risks
+Perform a compliance check on this repo against NIST 800-53
+```
+
+Claude will automatically scan your IaC files, map every finding to compliance controls (CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR), and offer to auto-fix issues inline.
+
+For full installation details and options, see [`skills/iac-security-review/README.md`](skills/iac-security-review/README.md).
+
+---
+
 ## 📁 Repository Structure
 
 ```
 📦 secure-cloud-prompt-engineering
+│
+├── 🤖 skills/
+│   └── iac-security-review/   → Claude Code skill (automated IaC security review)
+│       ├── SKILL.md           → Skill definition and workflow
+│       ├── README.md          → Installation and usage guide
+│       ├── references/        → Security checklists and compliance mappings
+│       └── scripts/           → Report generator (markdown + JSON)
 │
 ├── 🏗️  terraform/
 │   ├── aws/           → AWS Terraform security prompts
