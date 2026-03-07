@@ -2,7 +2,7 @@
 
 A collection of security-focused prompts for AI-assisted Infrastructure as Code (IaC) development.
 
-> **Now available as a Claude Code skill!** Install in one command and get automated IaC security reviews directly in your editor. See [Quick Start](#-quick-start) below.
+> **Now available as a Claude Code skill!** Install in one command and get automated IaC security reviews directly in your editor. See [Quick Start](#-claude-code-skill--quick-start) below.
 
 ---
 
@@ -14,27 +14,31 @@ Covers Terraform, Kubernetes, Docker, and cloud-native services with a focus on 
 
 ---
 
-## Quick Start — Claude Code Skill
+## 🚀 Claude Code Skill — Quick Start
 
-Install the IaC Security Review skill into Claude Code:
+**Now available as a Claude Code skill!** Install the IaC Security Review skill and get automated security reviews of your infrastructure code.
+
+### Install
 
 ```bash
-cp -r skills/iac-security-review ~/.claude/skills/
+# Clone the repo and copy the skill to your Claude Code skills directory
+git clone https://github.com/uttej-badwane/secure-cloud-prompt-engineering.git
+cp -r secure-cloud-prompt-engineering/skills/iac-security-review ~/.claude/skills/
 ```
 
-Then open Claude Code in any repo that has IaC files and try one of these prompts:
+### Use
 
-```
-Review my Terraform for security issues
-Audit this Kubernetes manifest against CIS benchmarks
-Check this Dockerfile for vulnerabilities and give me fixes
-Scan my GitHub Actions workflow — flag any supply chain risks
-Perform a compliance check on this repo against NIST 800-53
-```
+Open Claude Code in any project with IaC files and try:
 
-Claude will automatically scan your IaC files, map every finding to compliance controls (CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR), and offer to auto-fix issues inline.
+- `"Review my Terraform files for security issues"`
+- `"Audit the Kubernetes manifests against CIS benchmarks"`
+- `"Check this Dockerfile for vulnerabilities"`
+- `"Scan my GitHub Actions workflows for security misconfigurations"`
+- `"Run a compliance check against NIST 800-53 and PCI-DSS"`
 
-For full installation details and options, see [`skills/iac-security-review/README.md`](skills/iac-security-review/README.md).
+The skill covers Terraform, Kubernetes, Docker, CloudFormation, Ansible, Helm, GitHub Actions, and GitLab CI — with findings mapped to CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR, and ISO 27001.
+
+For full details see [`skills/iac-security-review/README.md`](skills/iac-security-review/README.md).
 
 ---
 
