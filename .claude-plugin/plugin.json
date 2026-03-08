@@ -1,8 +1,114 @@
 {
   "name": "secure-cloud-prompt-engineering",
-  "description": "Security-focused prompts and Claude Code skills for Infrastructure as Code review. Includes a comprehensive IaC security review skill with compliance mapping to CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR, and ISO 27001.",
+  "display_name": "IaC Security Review for Claude Code",
+  "description": "Security-focused Claude Code skill and slash commands for Infrastructure as Code review. Identifies misconfigurations, enforces least privilege, and maps findings to CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR, and ISO 27001 compliance controls. Covers Terraform, Kubernetes, Docker, CloudFormation, Ansible, Helm, GitHub Actions, and GitLab CI.",
+  "version": "1.1.0",
   "author": {
     "name": "Uttej Badwane",
-    "github": "uttej-badwane"
-  }
+    "github": "uttej-badwane",
+    "email": "uttej@securecloud.dev"
+  },
+  "repository": "https://github.com/uttej-badwane/secure-cloud-prompt-engineering",
+  "license": "MIT",
+  "categories": [
+    "security",
+    "devops",
+    "compliance",
+    "infrastructure"
+  ],
+  "tags": [
+    "terraform",
+    "kubernetes",
+    "docker",
+    "aws",
+    "iac",
+    "security",
+    "compliance",
+    "cis",
+    "nist",
+    "pci-dss",
+    "hipaa",
+    "soc2",
+    "gdpr",
+    "devsecops",
+    "cloudformation",
+    "ansible",
+    "github-actions"
+  ],
+  "contents": {
+    "skills": ["skills/iac-security-review"],
+    "commands": [
+      "commands/iac-security-review.md",
+      "commands/compliance-check.md",
+      "commands/generate-report.md",
+      "commands/fix-finding.md",
+      "commands/secret-scan.md"
+    ],
+    "agents": [
+      "agents/security-reviewer.md",
+      "agents/compliance-mapper.md",
+      "agents/report-generator.md"
+    ],
+    "rules": [
+      "rules/security-first.md",
+      "rules/iac-standards.md"
+    ],
+    "hooks": "hooks/hooks.json"
+  },
+  "pricing": {
+    "model": "freemium",
+    "tiers": [
+      {
+        "name": "Free",
+        "price": 0,
+        "description": "Full Claude Code plugin — skill, commands, agents, rules, hooks. Open source.",
+        "features": [
+          "IaC security review skill",
+          "5 slash commands",
+          "3 specialized agents",
+          "Always-follow security rules",
+          "Session hooks",
+          "CIS + NIST 800-53 compliance mapping"
+        ]
+      },
+      {
+        "name": "Pro",
+        "price": 29,
+        "billing": "monthly",
+        "description": "Automated PR security reviews via GitHub App. Never merge insecure IaC again.",
+        "cta_url": "https://github.com/marketplace/iac-security-review",
+        "features": [
+          "Everything in Free",
+          "GitHub App: auto-reviews every PR with IaC changes",
+          "PR comments with inline finding annotations",
+          "Block merges on CRITICAL findings (configurable)",
+          "All 8 compliance frameworks",
+          "JSON export for Jira/Linear/GitHub Issues",
+          "Custom severity thresholds"
+        ]
+      },
+      {
+        "name": "Enterprise",
+        "price": null,
+        "billing": "annual",
+        "description": "Self-hosted, custom rules, SLA, audit log, and priority support.",
+        "cta_url": "mailto:enterprise@securecloud.dev",
+        "features": [
+          "Everything in Pro",
+          "Self-hosted deployment",
+          "Custom security rules (OPA/Rego)",
+          "SAML SSO and audit logging",
+          "Private compliance framework mappings",
+          "99.9% SLA",
+          "Dedicated Slack support channel",
+          "Quarterly security posture reviews"
+        ]
+      }
+    ]
+  },
+  "install": {
+    "claude_code": "/plugin install uttej-badwane/secure-cloud-prompt-engineering",
+    "manual": "curl -fsSL https://raw.githubusercontent.com/uttej-badwane/secure-cloud-prompt-engineering/main/install.sh | bash"
+  },
+  "changelog_url": "https://github.com/uttej-badwane/secure-cloud-prompt-engineering/releases"
 }

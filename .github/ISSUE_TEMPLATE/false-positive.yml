@@ -1,0 +1,66 @@
+name: False Positive Report
+description: Report a security finding that was incorrectly flagged
+labels: ["false-positive", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Help us improve accuracy. False positive reports are reviewed within 2 business days.
+
+  - type: input
+    id: finding-title
+    attributes:
+      label: Finding title
+      description: Copy the finding title from the report
+      placeholder: "e.g., S3 bucket allows public access"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Reported severity
+      options:
+        - CRITICAL
+        - HIGH
+        - MEDIUM
+        - LOW
+    validations:
+      required: true
+
+  - type: input
+    id: file-path
+    attributes:
+      label: File and line number
+      placeholder: "e.g., terraform/main.tf:42"
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-false-positive
+    attributes:
+      label: Why is this a false positive?
+      description: Explain the context that makes this finding incorrect
+      placeholder: |
+        e.g., "The S3 bucket is intentionally public — it serves static assets for a public website.
+        The public access block is disabled by design."
+    validations:
+      required: true
+
+  - type: textarea
+    id: relevant-code
+    attributes:
+      label: Relevant code or configuration
+      description: Paste the relevant section of your IaC file
+      render: hcl
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Which product are you using?
+      options:
+        - Free (Claude Code plugin)
+        - Pro (GitHub App)
+        - Enterprise
+    validations:
+      required: true

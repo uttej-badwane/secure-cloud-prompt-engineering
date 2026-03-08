@@ -1,0 +1,104 @@
+name: IaC Security Review
+
+on:
+  pull_request:
+    paths:
+      - "**.tf"
+      - "**.tfvars"
+      - "**.yaml"
+      - "**.yml"
+      - "Dockerfile*"
+      - "docker-compose*.yml"
+      - "kustomization.yaml"
+      - ".github/workflows/**"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  iac-security-review:
+    name: IaC Security Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Get changed IaC files
+        id: changed-files
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD \
+            | grep -E '\.(tf|tfvars|yaml|yml)$|^Dockerfile|docker-compose' \
+            | head -50 \
+            | tr '\n' ' ')
+          echo "files=$CHANGED" >> $GITHUB_OUTPUT
+          echo "Changed IaC files: $CHANGED"
+
+      - name: Set up Python
+        if: steps.changed-files.outputs.files != ''
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2f # v5.3.0
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        if: steps.changed-files.outputs.files != ''
+        run: pip install anthropic
+
+      - name: Run IaC Security Review
+        if: steps.changed-files.outputs.files != ''
+        id: review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CHANGED_FILES: ${{ steps.changed-files.outputs.files }}
+          COMPLIANCE_FRAMEWORKS: ${{ vars.COMPLIANCE_FRAMEWORKS || 'cis,nist' }}
+          BLOCK_ON_CRITICAL: ${{ vars.BLOCK_ON_CRITICAL || 'false' }}
+        run: python .github/scripts/iac_review.py
+
+      - name: Post review comment
+        if: steps.changed-files.outputs.files != '' && steps.review.outputs.report != ''
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const report = process.env.REVIEW_REPORT;
+            const criticalCount = parseInt(process.env.CRITICAL_COUNT || '0');
+            const blockOnCritical = process.env.BLOCK_ON_CRITICAL === 'true';
+
+            // Delete previous review bot comments to keep PR clean
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            for (const comment of comments.data) {
+              if (comment.user.type === 'Bot' && comment.body.includes('IaC Security Review')) {
+                await github.rest.issues.deleteComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: comment.id,
+                });
+              }
+            }
+
+            // Post new review
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: report,
+            });
+
+            // Fail the job if CRITICAL findings exist and blocking is enabled
+            if (blockOnCritical && criticalCount > 0) {
+              core.setFailed(`Blocking merge: ${criticalCount} CRITICAL finding(s) found. Resolve before merging.`);
+            }
+        env:
+          REVIEW_REPORT: ${{ steps.review.outputs.report }}
+          CRITICAL_COUNT: ${{ steps.review.outputs.critical_count }}
+          BLOCK_ON_CRITICAL: ${{ vars.BLOCK_ON_CRITICAL || 'false' }}
+
+      - name: No IaC changes
+        if: steps.changed-files.outputs.files == ''
+        run: echo "No IaC files changed in this PR — skipping security review."
