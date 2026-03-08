@@ -1,1 +1,4 @@
 .DS_Store
+.claude-session.json
+*.pyc
+__pycache__/
