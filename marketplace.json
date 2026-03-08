@@ -1,0 +1,23 @@
+{
+  "name": "IaC Security Review Marketplace",
+  "owner": {
+    "name": "Uttej Badwane",
+    "github": "uttej-badwane"
+  },
+  "description": "AI-native IaC security review tools for Claude Code. Covers Terraform, Kubernetes, Docker, AWS, GitHub Actions, and 8 compliance frameworks.",
+  "plugins": [
+    {
+      "source": ".",
+      "category": "security",
+      "tags": [
+        "iac",
+        "terraform",
+        "kubernetes",
+        "docker",
+        "compliance",
+        "devsecops"
+      ],
+      "strict": false
+    }
+  ]
+}

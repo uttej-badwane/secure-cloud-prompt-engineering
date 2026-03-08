@@ -1,0 +1,56 @@
+name: Feature Request
+description: Suggest a new security check, compliance framework, or IaC type
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Feature requests from Pro and Enterprise customers are prioritized.
+
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: What type of feature?
+      options:
+        - New security check (specific misconfiguration to detect)
+        - New IaC type support (e.g., Pulumi, Crossplane)
+        - New compliance framework mapping
+        - New slash command
+        - GitHub App / CI/CD improvement
+        - Report format / export improvement
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the feature
+      placeholder: What should the tool detect or do that it doesn't currently?
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example (optional)
+      description: Paste an example IaC snippet that would trigger the new check, or describe the expected output
+      render: hcl
+
+  - type: textarea
+    id: compliance-reference
+    attributes:
+      label: Compliance reference (optional)
+      description: If this maps to a specific control, cite it here
+      placeholder: "e.g., CIS AWS 3.1, NIST AC-17, PCI-DSS Req 2.2.5"
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: Which product are you using?
+      options:
+        - Free (Claude Code plugin)
+        - Pro (GitHub App)
+        - Enterprise
+    validations:
+      required: true

@@ -1,144 +1,125 @@
-# 🔐 Secure Cloud Prompt Engineering
+# Secure Cloud Prompt Engineering
 
-A collection of security-focused prompts for AI-assisted Infrastructure as Code (IaC) development.
+**IaC security reviews, automated. Powered by Claude.**
 
-> **Now available as a Claude Code skill!** Install in one command and get automated IaC security reviews directly in your editor. See [Quick Start](#-claude-code-skill--quick-start) below.
+[![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-blueviolet)](https://github.com/uttej-badwane/secure-cloud-prompt-engineering)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue)](CHANGELOG.md)
 
----
-
-## 🎯 Purpose
-
-Prompt templates to guide AI tools in generating secure cloud infrastructure code following security best practices.
-
-Covers Terraform, Kubernetes, Docker, and cloud-native services with a focus on security controls and compliance.
+> Review Terraform, Kubernetes, Docker, CloudFormation, Ansible, GitHub Actions, and more —
+> directly in Claude Code or automatically on every PR.
 
 ---
 
-## 🚀 Claude Code Skill — Quick Start
+## Install
 
-**Now available as a Claude Code skill!** Install the IaC Security Review skill and get automated security reviews of your infrastructure code.
-
-### Install
+### Claude Code
 
 ```bash
-# Clone the repo and copy the skill to your Claude Code skills directory
-git clone https://github.com/uttej-badwane/secure-cloud-prompt-engineering.git
-cp -r secure-cloud-prompt-engineering/skills/iac-security-review ~/.claude/skills/
+# One-command install
+./install.sh
+
+# Or install just the skill manually
+cp -r skills/iac-security-review ~/.claude/skills/
 ```
 
-### Use
-
-Open Claude Code in any project with IaC files and try:
-
-- `"Review my Terraform files for security issues"`
-- `"Audit the Kubernetes manifests against CIS benchmarks"`
-- `"Check this Dockerfile for vulnerabilities"`
-- `"Scan my GitHub Actions workflows for security misconfigurations"`
-- `"Run a compliance check against NIST 800-53 and PCI-DSS"`
-
-The skill covers Terraform, Kubernetes, Docker, CloudFormation, Ansible, Helm, GitHub Actions, and GitLab CI — with findings mapped to CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR, and ISO 27001.
-
-For full details see [`skills/iac-security-review/README.md`](skills/iac-security-review/README.md).
-
----
-
-## 📁 Repository Structure
-
+Or via Claude Code:
 ```
-📦 secure-cloud-prompt-engineering
-│
-├── 🤖 skills/
-│   └── iac-security-review/   → Claude Code skill (automated IaC security review)
-│       ├── SKILL.md           → Skill definition and workflow
-│       ├── README.md          → Installation and usage guide
-│       ├── references/        → Security checklists and compliance mappings
-│       └── scripts/           → Report generator (markdown + JSON)
-│
-├── 🏗️  terraform/
-│   ├── aws/           → AWS Terraform security prompts
-│   ├── azure/         → Azure Terraform security prompts
-│   ├── gcp/           → GCP Terraform security prompts
-│   └── multi-cloud/   → Multi-cloud Terraform patterns
-│
-├── ☸️  kubernetes/
-│   ├── k8s-security.md       → Kubernetes security best practices
-│   ├── helm-security.md      → Helm chart security
-│   └── kustomize-security.md → Kustomize configuration security
-│
-├── 🐳 docker/
-│   ├── dockerfile-security.md      → Dockerfile security hardening
-│   └── docker-compose-security.md  → Docker Compose security
-│
-├── ☁️  aws/
-│   ├── aws-cli-security.md         → AWS CLI secure usage
-│   ├── cloudformation-security.md  → CloudFormation templates
-│   └── cdk-security.md             → AWS CDK security patterns
-│
-├── ⚙️  ansible/
-│   ├── ansible-security.md       → Ansible playbook security
-│   └── ansible-vault-security.md → Ansible Vault secrets management
-│
-├── 🔄 cicd/
-│   ├── github-actions-security.md → GitHub Actions workflows
-│   └── gitlab-ci-security.md      → GitLab CI/CD pipelines
-│
-├── 📊 monitoring/
-│   └── logging-security.md → Logging and monitoring security
-│
-├── 🛡️  security/
-│   ├── iac-security-review.md    → IaC security review checklist
-│   ├── secret-management.md      → Secrets management strategies
-│   ├── compliance-frameworks.md  → CIS, NIST, PCI-DSS, SOC2, HIPAA, GDPR
-│   └── vulnerability-scanning.md → Vulnerability scanning tools and practices
-│
-└── 📚 docs/
-    └── security-checklist.md → Security best practices checklist
+/plugin install uttej-badwane/secure-cloud-prompt-engineering
 ```
 
----
+### GitHub Action (automated PR reviews)
 
-## 🚀 Usage
+Automatically reviews every PR that touches IaC files. Posts findings as inline PR comments.
+Optionally blocks merges on CRITICAL findings.
 
-1. Select the prompt file for your technology stack
-2. Copy the prompt content
-3. Provide it to your AI assistant with your specific requirements
-4. Review and validate the generated code
-
-**Note:** Always scan and audit AI-generated code before production deployment.
+Copy `.github/workflows/pr-security-review.yml` into your repository, then add
+`ANTHROPIC_API_KEY` to your repo secrets. No other changes needed.
 
 ---
 
-## ✨ Features
+## What It Does
 
-- **Security-first approach** - Emphasizes least privilege, defense-in-depth, and security controls
-- **Multi-cloud support** - AWS, Azure, and GCP
-- **Compliance frameworks** - CIS benchmarks, NIST, PCI-DSS
-- **Production patterns** - Enterprise security configurations
+After installing the Claude Code plugin, use natural language or slash commands:
+
+```
+/iac-security-review              # Full scan of current directory
+/compliance-check pci terraform/  # PCI-DSS check on Terraform files
+/secret-scan                      # Find hardcoded secrets
+/fix-finding 2                    # Auto-fix finding #2 in place
+/generate-report json             # Export findings as JSON
+```
+
+Or trigger by describing what you want:
+- *"Review my Terraform for security issues"*
+- *"Audit Kubernetes manifests against CIS benchmarks"*
+- *"Check this Dockerfile for vulnerabilities"*
+- *"Scan GitHub Actions workflows for supply chain risks"*
+
+### IaC Types Supported
+
+| Type | Files |
+|---|---|
+| Terraform | `*.tf`, `*.tfvars` |
+| Kubernetes | `*.yaml` with `apiVersion:` |
+| Docker | `Dockerfile*`, `docker-compose*.yml` |
+| CloudFormation | `*.yaml` with `AWSTemplateFormatVersion` |
+| Ansible | Playbooks with `hosts:` / `tasks:` |
+| Helm | `Chart.yaml`, `values.yaml` |
+| GitHub Actions | `.github/workflows/*.yml` |
+| GitLab CI | `.gitlab-ci.yml` |
+| Kustomize | `kustomization.yaml` |
+
+### Compliance Frameworks
+
+CIS Benchmarks · NIST 800-53 · NIST 800-171 · PCI-DSS · SOC 2 · HIPAA · GDPR · ISO 27001
 
 ---
 
-## 🤝 Contributing
+## Repository Layout
 
-Contributions are welcome. Please ensure prompts are:
-- Concise and well-documented
-- Security-focused with clear threat models
-- Under 40 lines
-- Tested with popular AI assistants
+```
+skills/iac-security-review/    # Claude Code skill
+  SKILL.md                     # Skill definition and workflow
+  references/                  # Security checklists and compliance mappings
+  scripts/generate_report.py   # Report generator (markdown/JSON)
+
+commands/                      # Slash commands (/iac-security-review, /compliance-check, ...)
+agents/                        # Specialized subagents (security-reviewer, compliance-mapper, ...)
+rules/                         # Always-follow guidelines (security-first, iac-standards)
+hooks/                         # Session lifecycle hooks
+
+.github/
+  workflows/pr-security-review.yml  # GitHub Action for automated PR reviews
+  scripts/iac_review.py             # Claude API integration for CI/CD
+
+terraform/{aws,azure,gcp,multi-cloud}/  # Terraform security prompts
+kubernetes/                    # Kubernetes, Helm, Kustomize prompts
+docker/                        # Dockerfile and Compose prompts
+aws/                           # AWS service-specific prompts
+cicd/                          # GitHub Actions and GitLab CI prompts
+security/                      # Cross-cutting security topics
+ansible/                       # Ansible playbook prompts
+monitoring/                    # Logging and observability prompts
+```
 
 ---
 
-## 👥 Maintainers
+## Contributing
 
-- [@uttej-badwane](https://github.com/uttej-badwane) - Repository Owner & Primary Maintainer
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+Contributions welcome. Please ensure new checks:
+- Reference a specific CIS, NIST, or vendor security document
+- Include a working remediation code snippet
+- Specify the severity level (CRITICAL / HIGH / MEDIUM / LOW)
 
 ---
 
-**⭐ If you find this repository helpful, please consider giving it a star!**
+## Maintainer
 
-*Made with ❤️ for the Security & DevOps Community*
+[@uttej-badwane](https://github.com/uttej-badwane) — Senior Security Engineer, CISSP
+
+---
+
+## License
+
+MIT — free for personal and commercial use. See [LICENSE](LICENSE).
