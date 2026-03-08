@@ -13,7 +13,7 @@
 
 ## Install
 
-### Claude Code (Free)
+### Claude Code
 
 ```bash
 # One-command install
@@ -28,14 +28,13 @@ Or via Claude Code:
 /plugin install uttej-badwane/secure-cloud-prompt-engineering
 ```
 
-### GitHub App (Pro — $29/mo)
+### GitHub Action (automated PR reviews)
 
 Automatically reviews every PR that touches IaC files. Posts findings as inline PR comments.
 Optionally blocks merges on CRITICAL findings.
 
-**[Install on GitHub Marketplace →](https://github.com/marketplace/iac-security-review)**
-
-No code changes needed. Just install the app and add `ANTHROPIC_API_KEY` to your repo secrets.
+Copy `.github/workflows/pr-security-review.yml` into your repository, then add
+`ANTHROPIC_API_KEY` to your repo secrets. No other changes needed.
 
 ---
 
@@ -74,27 +73,6 @@ Or trigger by describing what you want:
 ### Compliance Frameworks
 
 CIS Benchmarks · NIST 800-53 · NIST 800-171 · PCI-DSS · SOC 2 · HIPAA · GDPR · ISO 27001
-
----
-
-## Pricing
-
-| | Free | Pro | Enterprise |
-|---|:---:|:---:|:---:|
-| Claude Code plugin | ✅ | ✅ | ✅ |
-| 5 slash commands | ✅ | ✅ | ✅ |
-| CIS + NIST mapping | ✅ | ✅ | ✅ |
-| All 8 frameworks | — | ✅ | ✅ |
-| GitHub App (auto PR review) | — | ✅ | ✅ |
-| Block merges on CRITICAL | — | ✅ | ✅ |
-| JSON export / integrations | — | ✅ | ✅ |
-| Self-hosted deployment | — | — | ✅ |
-| Custom OPA/Rego rules | — | — | ✅ |
-| SAML SSO + audit log | — | — | ✅ |
-| SLA + dedicated support | — | — | ✅ |
-| **Price** | **Free** | **$29/mo/org** | **Contact us** |
-
-[Full pricing details →](PRICING.md)
 
 ---
 
@@ -140,14 +118,8 @@ Contributions welcome. Please ensure new checks:
 
 [@uttej-badwane](https://github.com/uttej-badwane) — Senior Security Engineer, CISSP
 
-**Enterprise inquiries:** [enterprise@securecloud.dev](mailto:enterprise@securecloud.dev)
-
 ---
 
 ## License
 
 MIT — free for personal and commercial use. See [LICENSE](LICENSE).
-
----
-
-*Comparable tools: Checkov, Snyk IaC ($20K+/yr), Wiz Code ($24K+/yr). We charge $29/month.*
