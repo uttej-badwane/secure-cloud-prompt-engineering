@@ -1,26 +1,23 @@
 # 🔐 Secure Cloud Prompt Engineering
 
-A collection of security-focused prompts for AI-assisted Infrastructure as Code (IaC) development.
+**130+ ready-to-use security prompts for cloud engineers, platform teams, developers, and AI builders.**
 
-> **Now available as a Claude Code skill!** Install in one command and get automated IaC security reviews directly in your editor. See [Quick Start](#-claude-code-skill--quick-start) below.
+Paste a prompt into Claude, ChatGPT, Copilot, Gemini, or any AI assistant, add your requirements, and get infrastructure, code, policies, and runbooks that follow current security practice for AWS, Azure, Google Cloud, Kubernetes, CI/CD, SaaS, and AI systems.
 
----
-
-## 🎯 Purpose
-
-Prompt templates to guide AI tools in generating secure cloud infrastructure code following security best practices.
-
-Covers Terraform, Kubernetes, Docker, cloud-native services, CI/CD, software supply chain, and AI agents with a focus on security controls and compliance.
+It also ships as a **Claude Code plugin** with an IaC security review skill, slash commands, and agents.
 
 ---
 
-## 🚀 Claude Code Skill — Quick Start
+## 🚀 Quick Start
 
-**Now available as a Claude Code skill!** Install the IaC Security Review skill and get automated security reviews of your infrastructure code.
+### Use a prompt
 
-### Install
+1. Find the prompt for your task in the [catalog](#-prompt-catalog) below
+2. Copy the text under `## Prompt`
+3. Paste it into your AI assistant and add your details, for example: *"Create an S3 bucket for audit logs in account 1234 with 7-year retention"*
+4. Review the output, run your scanners, and test before production
 
-Install as a Claude Code plugin (skill, slash commands, agents, and hooks):
+### Install the Claude Code plugin
 
 ```
 /plugin install secure-cloud-prompt-engineering --marketplace uttej-badwane/secure-cloud-prompt-engineering
@@ -40,139 +37,93 @@ git clone https://github.com/uttej-badwane/secure-cloud-prompt-engineering.git
 cp -r secure-cloud-prompt-engineering/skills/iac-security-review ~/.claude/skills/
 ```
 
-### Use
-
-Open Claude Code in any project with IaC files and try:
+Then try:
 
 - `"Review my Terraform files for security issues"`
 - `"Audit the Kubernetes manifests against CIS benchmarks"`
-- `"Check this Dockerfile for vulnerabilities"`
 - `"Scan my GitHub Actions workflows for security misconfigurations"`
 - `"Run a compliance check against NIST 800-53 and PCI-DSS"`
 
-The skill covers Terraform, Kubernetes, Docker, CloudFormation, Ansible, Helm, GitHub Actions, and GitLab CI — with findings mapped to CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR, and ISO 27001.
-
-For full details see [`skills/iac-security-review/README.md`](skills/iac-security-review/README.md).
+See [`skills/iac-security-review/README.md`](skills/iac-security-review/README.md) for details.
 
 ---
 
-## 📁 Repository Structure
+## 📚 Prompt Catalog
 
-```
-📦 secure-cloud-prompt-engineering
-│
-├── 🤖 skills/
-│   └── iac-security-review/   → Claude Code skill (automated IaC security review)
-│       ├── SKILL.md           → Skill definition and workflow
-│       ├── README.md          → Installation and usage guide
-│       ├── references/        → Security checklists and compliance mappings
-│       └── scripts/           → Report generator (markdown + JSON)
-│
-├── 🏗️  terraform/
-│   ├── aws/           → AWS Terraform security prompts
-│   ├── azure/         → Azure Terraform security prompts
-│   ├── gcp/           → GCP Terraform security prompts
-│   └── multi-cloud/   → Multi-cloud Terraform patterns
-│
-├── ☸️  kubernetes/
-│   ├── k8s-security.md                → Kubernetes security best practices
-│   ├── managed-kubernetes-security.md → EKS, AKS and GKE cluster security
-│   ├── helm-security.md               → Helm chart security
-│   └── kustomize-security.md          → Kustomize configuration security
-│
-├── 🐳 docker/
-│   ├── dockerfile-security.md      → Dockerfile security hardening
-│   └── docker-compose-security.md  → Docker Compose security
-│
-├── ☁️  aws/
-│   ├── aws-cli-security.md         → AWS CLI secure usage
-│   ├── cloudformation-security.md  → CloudFormation templates
-│   ├── cdk-security.md             → AWS CDK security patterns
-│   ├── control-tower-security.md   → Multi-account governance
-│   ├── data-perimeter-security.md  → SCPs, RCPs and VPC endpoint policies
-│   ├── ec2-security.md             → EC2 and IMDS hardening
-│   ├── iam-security.md             → IAM and Identity Center
-│   ├── lambda-serverless-security.md → Lambda and API Gateway
-│   ├── s3-security.md              → S3 data protection
-│   └── vpc-security.md             → VPC network security
-│
-├── 🤖 ai/
-│   ├── ai-agent-mcp-security.md       → AI agents and MCP servers
-│   └── llm-cloud-platform-security.md → Bedrock, Vertex AI, Azure AI Foundry
-│
-├── 🪪 identity/
-│   └── workload-identity-federation.md → OIDC federation for CI/CD and workloads
-│
-├── ⚙️  ansible/
-│   ├── ansible-security.md       → Ansible playbook security
-│   └── ansible-vault-security.md → Ansible Vault secrets management
-│
-├── 🔄 cicd/
-│   ├── github-actions-security.md → GitHub Actions workflows
-│   └── gitlab-ci-security.md      → GitLab CI/CD pipelines
-│
-├── 📊 monitoring/
-│   └── logging-security.md → Logging and monitoring security
-│
-├── 🛡️  security/
-│   ├── iac-security-review.md    → IaC security review checklist
-│   ├── secret-management.md      → Secrets management strategies
-│   ├── compliance-frameworks.md  → CIS, NIST, PCI-DSS, SOC2, HIPAA, GDPR
-│   ├── vulnerability-scanning.md → Vulnerability scanning tools and practices
-│   ├── supply-chain-security.md  → Pinning, SLSA, SBOM and signing
-│   ├── cloud-incident-response.md → Leaked keys, compromised compute, runbooks
-│   └── cloud-threat-modeling.md  → STRIDE and ATT&CK threat models
-│
-└── 📚 docs/
-    └── security-checklist.md → Security best practices checklist
-```
+Each folder has its own README with the full list of prompts and what each one covers.
+
+| Folder | Prompts | What it covers |
+|---|---|---|
+| ☁️ [aws/](aws/) | 19 | IAM, S3, VPC, EC2, KMS, RDS, DynamoDB, ECS/ECR, Lambda, CloudFront/WAF, Cognito, Route 53, messaging, data perimeter, Control Tower, security services, CDK, CloudFormation, CLI |
+| 🔷 [azure/](azure/) | 10 | Entra ID, landing zone and policy, Storage, Key Vault, networking, App Service/Functions, SQL/Cosmos DB, Defender/Sentinel, Bicep, VMs |
+| 🟢 [gcp/](gcp/) | 10 | Organization and IAM, VPC, Cloud Storage, Cloud Run, Cloud SQL, BigQuery, KMS/Secret Manager, logging/SCC, VPC Service Controls, Compute Engine |
+| ☸️ [kubernetes/](kubernetes/) | 13 | Pod security, managed clusters (EKS/AKS/GKE), RBAC, admission policy, network policy and mesh, Gateway API, runtime, GitOps, multi-tenancy, secrets, cluster hardening, Helm, Kustomize |
+| 🐳 [docker/](docker/) | 4 | Dockerfile, Compose, host and daemon hardening, container registries |
+| 🏗️ [terraform/](terraform/) | 8 | AWS, Azure, GCP, multi-cloud, state security, module and provider supply chain, HCP Terraform, OpenTofu |
+| 🧱 [iac/](iac/) | 2 | Pulumi, Crossplane |
+| 🔄 [cicd/](cicd/) | 8 | GitHub Actions, GitLab CI, Jenkins, Azure DevOps, CodeBuild/CodePipeline, Cloud Build, CircleCI, self-hosted runners |
+| ⚙️ [ansible/](ansible/) | 4 | Playbooks, Vault, Automation Platform/AWX, CIS and STIG hardening |
+| 🪪 [identity/](identity/) | 5 | Workload identity federation, workforce SSO and MFA, privileged access, non-human identities, OAuth/OIDC |
+| 🌐 [network/](network/) | 6 | API security, WAF and DDoS, zero trust access, hybrid connectivity, egress control, TLS certificates |
+| 📊 [monitoring/](monitoring/) | 4 | Logging, audit logging baseline, detection engineering, observability stack |
+| 🛡️ [security/](security/) | 19 | Threat modeling, architecture review, IR, forensics, tabletops, supply chain, secrets, keys, data/DLP, ransomware, policy as code, assessments, pentesting, compliance, FedRAMP/CMMC, sovereignty, post-quantum crypto |
+| 🤖 [ai/](ai/) | 8 | AI agents and MCP, LLM platforms, RAG, coding assistants, model supply chain, MLOps, AI red teaming, AI gateways |
+| 🧩 [saas/](saas/) | 5 | GitHub organizations, Microsoft 365, Google Workspace, Okta, SaaS posture |
+| 🐍 [python/](python/) | 5 | Secure coding, cloud SDKs, FastAPI/Django/Flask, packaging, clean code style |
+| ✨ [code-quality/](code-quality/) | 4 | Clean code, secure code review, IaC style, testing strategy |
+
+Plus [`docs/security-checklist.md`](docs/security-checklist.md), a pre-deployment checklist.
 
 ---
 
-## 🚀 Usage
+## 🧭 Start Here by Role
 
-1. Select the prompt file for your technology stack
-2. Copy the prompt content
-3. Provide it to your AI assistant with your specific requirements
-4. Review and validate the generated code
-
-**Note:** Always scan and audit AI-generated code before production deployment.
+| You are a... | Start with |
+|---|---|
+| Cloud security engineer | [security-services](aws/security-services.md), [cloud-security-assessment](security/cloud-security-assessment.md), [data-perimeter](aws/data-perimeter-security.md), [detection-engineering](monitoring/detection-engineering.md) |
+| Platform or DevOps engineer | [terraform-state](terraform/general/terraform-state-security.md), [managed-kubernetes](kubernetes/managed-kubernetes-security.md), [github-actions](cicd/github-actions-security.md), [workload-identity-federation](identity/workload-identity-federation.md) |
+| Application developer | [python-secure-coding](python/python-secure-coding.md), [api-security](network/api-security.md), [oauth-oidc](identity/oauth-oidc-implementation.md), [secure-code-review](code-quality/secure-code-review.md) |
+| AI engineer | [ai-agent-mcp](ai/ai-agent-mcp-security.md), [rag-security](ai/rag-security.md), [model-supply-chain](ai/model-supply-chain-security.md), [ai-red-teaming](ai/ai-red-teaming.md) |
+| Incident responder | [cloud-incident-response](security/cloud-incident-response.md), [cloud-forensics](security/cloud-forensics.md), [incident-response-tabletop](security/incident-response-tabletop.md) |
+| GRC or public sector | [compliance-frameworks](security/compliance-frameworks.md), [fedramp-cmmc-readiness](security/fedramp-cmmc-readiness.md), [data-residency](security/data-residency-sovereign-cloud.md), [ansible-cis-stig](ansible/ansible-cis-stig-hardening.md) |
 
 ---
 
-## ✨ Features
+## 🤖 Claude Code Plugin Contents
 
-- **Security-first approach** - Emphasizes least privilege, defense-in-depth, and security controls
-- **Multi-cloud support** - AWS, Azure, and GCP
-- **AI security** - AI agents, MCP servers, and managed LLM platforms
-- **Supply chain** - Pinning, provenance, SBOM, and signing
-- **Compliance frameworks** - CIS benchmarks, NIST, PCI-DSS
-- **Production patterns** - Enterprise security configurations
+| Component | What it does |
+|---|---|
+| [`skills/iac-security-review`](skills/iac-security-review/) | Reviews Terraform, Kubernetes, Docker, CloudFormation, Ansible, Helm, and CI/CD files, with findings mapped to CIS, NIST 800-53, NIST 800-171, PCI DSS, SOC 2, HIPAA, GDPR, and ISO 27001 |
+| [`commands/`](commands/) | `/iac-security-review`, `/compliance-check`, `/secret-scan`, `/fix-finding`, `/generate-report` |
+| [`agents/`](agents/) | `security-reviewer`, `compliance-mapper`, `report-generator` |
+| [`rules/`](rules/) | Security-first and IaC coding standards |
+| [`hooks/`](hooks/) | Session context and a warning before destructive commands |
+
+---
+
+## ✅ What Makes These Prompts Different
+
+- **Current:** reviewed against 2026 guidance (for example SHA-pinned actions after the tj-actions and trivy-action compromises, Gateway API after the ingress-nginx retirement, S3 native state locking, ISO 27001:2022 and PCI DSS v4.0.1 control IDs)
+- **Specific:** names the exact settings, policies, and condition keys to use, not generic advice
+- **Threat-driven:** built around how real cloud breaches happen
+- **Plain language:** short, scannable, and easy to adapt
+
+Always review AI-generated output, run your own scanners, and test before production. Prompts are guidance, not a guarantee of compliance.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome. Please ensure prompts are:
-- Concise and well-documented
-- Security-focused with clear threat models
-- Under 40 lines
-- Tested with popular AI assistants
+New prompts and fixes are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and start from the [prompt template](docs/prompt-template.md). Run `python3 scripts/build_index.py` after adding a prompt to update the folder index.
 
 ---
 
-## 👥 Maintainers
+## 👥 Maintainer
 
-- [@uttej-badwane](https://github.com/uttej-badwane) - Repository Owner & Primary Maintainer
-
----
+- [@uttej-badwane](https://github.com/uttej-badwane)
 
 ## 📄 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+MIT. See [LICENSE](LICENSE).
 
----
-
-**⭐ If you find this repository helpful, please consider giving it a star!**
-
-*Made with ❤️ for the Security & DevOps Community*
+**⭐ If this helps you, please star the repo and share it with your team.**
