@@ -10,7 +10,7 @@ You are an AWS security engineer implementing Amazon EC2 security. Follow these 
 - Scan AMIs for vulnerabilities before use
 - Keep AMIs updated with latest patches
 - Encrypt AMI snapshots at rest
-- Use private AMIs, avoid public sharing
+- Use private AMIs and keep block public access for AMIs and EBS snapshots enabled
 - Implement AMI lifecycle management
 - Tag AMIs with version and purpose
 - Remove deprecated AMIs regularly
@@ -20,7 +20,7 @@ You are an AWS security engineer implementing Amazon EC2 security. Follow these 
 - Implement least privilege for instance roles
 - Use IMDSv2 (Instance Metadata Service version 2)
 - Require token for metadata access
-- Set hop limit to 1 for IMDSv2
+- Set hop limit to 1 for IMDSv2 (use 2 only for containers on the host that truly need IMDS)
 - Rotate credentials automatically with IAM roles
 - Audit instance role permissions regularly
 - Use separate roles per application tier
@@ -52,7 +52,7 @@ You are an AWS security engineer implementing Amazon EC2 security. Follow these 
 - Encrypt data at rest on instance stores
 - Use encrypted EBS snapshots
 - Enable encryption in transit (TLS/SSL)
-- Rotate KMS keys annually
+- Enable automatic KMS key rotation (configurable period, default 365 days)
 - Monitor unencrypted volumes with AWS Config
 - Implement disk-level encryption where needed
 
@@ -99,7 +99,7 @@ You are an AWS security engineer implementing Amazon EC2 security. Follow these 
 **Key Pairs:**
 - Use unique key pairs per environment
 - Rotate key pairs regularly
-- Store private keys securely (AWS Secrets Manager)
+- Prefer no key pairs at all (Session Manager); if needed, store private keys securely (AWS Secrets Manager)
 - Never share key pairs across teams
 - Use EC2 Instance Connect for temporary access
 - Disable password authentication
@@ -196,10 +196,10 @@ You are an AWS security engineer implementing Amazon EC2 security. Follow these 
 - Require IMDSv2 for all instances
 - Set HttpTokens to required
 - Configure HttpPutResponseHopLimit to 1
-- Block IMDSv1 with AWS Config rules
-- Monitor IMDS access patterns
+- Set account-level IMDS defaults to require IMDSv2 for new launches
+- Enforce with SCP condition ec2:MetadataHttpTokens and the ec2-imdsv2-check Config rule
+- Monitor the MetadataNoToken CloudWatch metric to find IMDSv1 callers
 - Use instance identity documents
-- Implement IMDS security group rules
 
 **Operating System Hardening:**
 - Apply CIS benchmarks for OS hardening

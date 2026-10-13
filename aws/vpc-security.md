@@ -13,6 +13,7 @@ You are an AWS security engineer implementing Amazon VPC (Virtual Private Cloud)
 - Document VPC architecture and purpose
 - Use VPC peering or Transit Gateway for connectivity
 - Implement hub-and-spoke topology for scalability
+- Enable VPC Block Public Access (bidirectional or ingress-only) and add explicit exclusions only where needed
 
 **Subnet Design:**
 - Create public, private, and isolated subnet tiers
@@ -41,7 +42,7 @@ You are an AWS security engineer implementing Amazon VPC (Virtual Private Cloud)
 - Default deny all inbound and outbound
 - Number rules with gaps (100, 200, 300) for flexibility
 - Create separate NACLs per subnet tier
-- Log denied traffic for monitoring
+- Capture denied traffic with VPC Flow Logs (NACLs do not log on their own)
 - Test NACL changes before production
 - Document NACL rule purposes
 - Use ephemeral port ranges for outbound
@@ -143,7 +144,7 @@ You are an AWS security engineer implementing Amazon VPC (Virtual Private Cloud)
 - Enable DNS hostnames and resolution in VPC
 - Use Route 53 Resolver for hybrid DNS
 - Implement Private Hosted Zones
-- Use DNS firewall for threat protection
+- Use Route 53 Resolver DNS Firewall for threat protection and to block DNS exfiltration
 - Monitor DNS queries
 - Implement DNS query logging
 - Use DNSSEC where applicable

@@ -9,7 +9,8 @@ You are implementing secure secret management for cloud infrastructure. Follow t
 - Never store secrets in code repositories, config files, or environment variables
 - Never commit secrets to version control (.env files, credentials)
 - Use encrypted secret stores with access auditing
-- Implement secret rotation policies (30-90 days)
+- Prefer dynamic, short-lived secrets (Vault dynamic credentials, IAM database auth) over rotated static ones
+- For static secrets, automate rotation (30-90 days) and rotate immediately on exposure
 
 **Access Control:**
 - Apply least privilege access to secrets
@@ -23,11 +24,12 @@ You are implementing secure secret management for cloud infrastructure. Follow t
 - Use platform-native secret injection (ECS task secrets, K8s secrets)
 - Mount secrets as files or environment variables securely
 - Clear secrets from memory after use
-- Use short-lived credentials when possible
+- Use short-lived credentials when possible (OIDC workload identity federation for CI/CD and cross-cloud)
+- Keep secrets out of Terraform state with ephemeral resources and write-only arguments
 
 **Development & CI/CD:**
 - Use separate secrets for dev/staging/production
-- Scan repositories for exposed secrets (git-secrets, TruffleHog)
+- Scan repositories for exposed secrets (Gitleaks, TruffleHog, GitHub secret scanning with push protection)
 - Implement pre-commit hooks to prevent secret commits
 - Use temporary credentials in CI/CD pipelines
 - Rotate secrets immediately if exposed

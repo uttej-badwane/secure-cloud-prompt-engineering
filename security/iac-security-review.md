@@ -36,7 +36,9 @@ You are conducting a security review of Infrastructure as Code. Perform a compre
 - Identify outdated versions and deprecated resources
 - Check for known CVEs in dependencies
 - Review container image security
-- Assess supply chain security risks
+- Assess supply chain security risks (unpinned actions, modules, charts, and images)
+- Check Terraform state handling: encrypted backend, locking, no secrets in state
+- Flag deprecated settings (PodSecurityPolicy, DynamoDB state locking, IMDSv1, OAI, compose version:)
 
 **Output Format:**
 Provide findings categorized by severity (Critical, High, Medium, Low) with:
@@ -44,4 +46,4 @@ Provide findings categorized by severity (Critical, High, Medium, Low) with:
 2. Security impact
 3. Remediation recommendation with code example
 
-Follow OWASP IaC Security practices and provide actionable remediation guidance.
+Follow the OWASP Top 10 CI/CD Security Risks and the latest CIS Benchmarks, and provide actionable remediation guidance.

@@ -8,7 +8,8 @@ You are a security engineer implementing secure logging and monitoring. Follow t
 - Enable comprehensive logging for all infrastructure components
 - Log security-relevant events (authentication, authorization, config changes)
 - Implement centralized log aggregation
-- Use structured logging formats (JSON, syslog)
+- Use structured logging formats (JSON, syslog) and consider OCSF for security data
+- Use OpenTelemetry for consistent log, metric and trace collection
 - Configure log retention policies per compliance requirements
 - Implement log integrity verification
 - Protect logs from tampering with immutability
@@ -17,8 +18,11 @@ You are a security engineer implementing secure logging and monitoring. Follow t
 - AWS: Enable CloudTrail in all regions and accounts
 - AWS: Configure VPC Flow Logs for network monitoring
 - AWS: Use CloudWatch Logs for application and system logs
+- AWS: Enable CloudTrail data events for S3, Lambda and DynamoDB on sensitive resources
+- SaaS/identity: Collect IdP, GitHub/GitLab audit logs and SaaS admin logs
 - Azure: Enable Activity Logs and Diagnostic Settings
-- Azure: Configure NSG Flow Logs
+- Azure: Configure VNet Flow Logs (NSG flow logs are being retired)
+- Microsoft Entra ID: Export sign-in and audit logs
 - GCP: Enable Cloud Audit Logs (admin, data, system)
 - GCP: Configure VPC Flow Logs
 
@@ -50,7 +54,7 @@ You are a security engineer implementing secure logging and monitoring. Follow t
 - Implement backup and disaster recovery for logs
 
 **SIEM Integration:**
-- Forward logs to SIEM (Splunk, ELK, Sentinel, Chronicle)
+- Forward logs to SIEM (Splunk, Elastic, Microsoft Sentinel, Google SecOps)
 - Implement real-time log streaming
 - Configure correlation rules for threat detection
 - Create security alerts and notifications
@@ -80,7 +84,8 @@ You are a security engineer implementing secure logging and monitoring. Follow t
 - Collect container logs with Fluentd or Fluent Bit
 - Use Prometheus for metrics collection
 - Implement distributed tracing with Jaeger or Zipkin
-- Monitor pod security policy violations
+- Monitor Pod Security Admission and admission policy violations
+- Enable Kubernetes API server audit logs (EKS/AKS/GKE control plane logs)
 - Track resource usage and quotas
 - Alert on failed security scans
 - Monitor admission controller events

@@ -1,6 +1,6 @@
 ---
 name: iac-security-review
-version: 1.0.0
+version: 1.1.0
 description: >-
   Performs comprehensive security reviews of Infrastructure as Code (IaC) files
   including Terraform, Kubernetes manifests, Dockerfiles, CloudFormation,
@@ -121,7 +121,8 @@ After presenting the report, offer to:
 - Missing `aws_cloudtrail`, VPC flow logs, or GuardDuty
 - RDS/databases without encryption at rest or in transit
 - Missing `prevent_destroy` lifecycle on critical resources
-- No backend encryption or state locking configured
+- No backend encryption or state locking configured (flag deprecated `dynamodb_table`; recommend `use_lockfile = true`)
+- Secrets written to state (non-ephemeral secret data sources, missing write-only arguments)
 - Default VPC usage
 - No VPN or PrivateLink for inter-service connectivity; traffic routing over public internet
 
@@ -135,6 +136,7 @@ After presenting the report, offer to:
 - Images using `latest` tag or no digest pinning
 - Missing Pod Disruption Budgets for production workloads
 - ServiceAccounts with cluster-admin bindings
+- Namespace not enforcing Pod Security Admission `restricted`, or PodSecurityPolicy still referenced (removed in v1.25)
 
 ### Dockerfile Priority Checks
 - Running as root (no `USER` instruction)
@@ -151,7 +153,9 @@ After presenting the report, offer to:
 - `pull_request_target` with checkout of PR code (pwn request)
 - Overly permissive `permissions:` in GitHub Actions
 - Missing OIDC for cloud authentication (using long-lived keys instead)
-- Unpinned action versions (use SHA pinning)
+- Unpinned action versions (use full commit SHA pinning; tags were rewritten in the tj-actions and trivy-action compromises)
+- Untrusted `${{ github.event.* }}` input interpolated into `run:` scripts
+- OIDC trust policy with a wildcard `sub` claim
 - Missing branch protection or required reviews
 - Artifacts containing sensitive data
 
@@ -174,7 +178,7 @@ After presenting the report, offer to:
 - Secrets stored in code, config files, `.env`, or environment variables instead of a dedicated vault
 - No secret rotation policy (target: 30–90 day rotation with automation)
 - Secrets injected at build time (via `ARG`/`ENV`) rather than at runtime
-- No pre-commit hooks or repository secret scanning (git-secrets, TruffleHog, GitGuardian)
+- No pre-commit hooks or repository secret scanning (Gitleaks, TruffleHog, GitGuardian)
 - No access logging or alerting on secret store operations
 - Long-lived static credentials used where OIDC or short-lived tokens are available
 - Shared secrets across dev/staging/production environments

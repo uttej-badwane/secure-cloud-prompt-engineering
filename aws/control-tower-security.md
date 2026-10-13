@@ -34,19 +34,20 @@ You are an AWS security engineer implementing AWS Control Tower for multi-accoun
 - Implement tagging standards
 - Document provisioning process
 
-**Guardrails (Preventive):**
-- Enable mandatory guardrails (cannot be disabled)
-- Implement strongly recommended guardrails
+**Preventive Controls (formerly guardrails):**
+- Keep mandatory controls enabled
+- Implement strongly recommended controls
 - Disallow public write access to S3 buckets
 - Disallow unencrypted S3 bucket creation
 - Require MFA for root account
-- Disallow changes to IAM policies
+- Protect Control Tower and security tooling roles from modification
 - Prevent CloudTrail deletion or modification
 - Restrict region access via SCPs
 - Block public access to RDS snapshots
 
-**Guardrails (Detective):**
-- Enable detective guardrails for monitoring
+**Detective and Proactive Controls:**
+- Enable detective controls for monitoring
+- Use proactive controls (CloudFormation Hooks) to block non-compliant resources before deployment
 - Detect publicly accessible S3 buckets
 - Detect unencrypted EBS volumes
 - Monitor CloudTrail configuration changes
@@ -62,6 +63,8 @@ You are an AWS security engineer implementing AWS Control Tower for multi-accoun
 - Restrict actions in specific regions
 - Enforce encryption requirements
 - Prevent root account usage
+- Use centralized root access management to remove root credentials from member accounts
+- Use Resource Control Policies (RCPs) to cap what external principals can do with your resources
 - Implement tag-based access control
 - Test SCPs before wide deployment
 - Document SCP purposes and exceptions
@@ -71,7 +74,7 @@ You are an AWS security engineer implementing AWS Control Tower for multi-accoun
 - Enable CloudTrail in all accounts
 - Configure AWS Config in all regions
 - Enable GuardDuty for threat detection
-- Activate Security Hub for findings
+- Activate Security Hub and Security Hub CSPM for findings
 - Enable AWS Config conformance packs
 - Configure SNS notifications for alerts
 - Implement IAM Access Analyzer
@@ -99,10 +102,10 @@ You are an AWS security engineer implementing AWS Control Tower for multi-accoun
 - Monitor audit account activity
 
 **Identity and Access Management:**
-- Use AWS SSO for centralized access
+- Use IAM Identity Center (formerly AWS SSO) for centralized access
 - Implement permission sets per role
 - Enable MFA for all SSO users
-- Integrate with identity provider (Azure AD, Okta)
+- Integrate with identity provider (Microsoft Entra ID, Okta) using SCIM provisioning
 - Use groups for permission assignment
 - Implement least privilege access
 - Document access policies
@@ -142,7 +145,7 @@ You are an AWS security engineer implementing AWS Control Tower for multi-accoun
 - Use CfCT for custom account baselines
 - Deploy security controls via CfCT
 - Implement organization-wide resources
-- Customize guardrails and policies
+- Customize controls and policies
 - Version control CfCT configurations
 - Test customizations before deployment
 - Document custom baselines
@@ -154,14 +157,14 @@ You are an AWS security engineer implementing AWS Control Tower for multi-accoun
 - Implement consolidated billing
 - Apply tag policies for governance
 - Use backup policies for data protection
-- Implement AI services opt-out policies
+- Implement AI services opt-out policies and declarative policies for EC2 (IMDSv2, block public AMI/snapshot sharing)
 - Monitor organization-wide costs
 - Document organizational structure
 
 **Monitoring and Alerting:**
 - Monitor Control Tower dashboard
 - Set up CloudWatch alarms for drift
-- Alert on guardrail violations
+- Alert on control violations
 - Monitor account provisioning failures
 - Track compliance status changes
 - Implement automated remediation
@@ -270,7 +273,7 @@ You are an AWS security engineer implementing AWS Control Tower for multi-accoun
 
 **Compliance Reporting:**
 - Generate account compliance reports
-- Track guardrail compliance
+- Track control compliance
 - Monitor security control effectiveness
 - Create executive dashboards
 - Implement automated reporting
