@@ -6,18 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node hooks/session-start.js"
-          }
-        ]
-      }
-    ],
-    "SessionStop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node hooks/session-stop.js"
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.js\""
           }
         ]
       }
@@ -28,7 +17,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node hooks/pre-bash.js"
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/pre-bash.js\""
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PLUGIN_ROOT}/hooks/session-stop.js\""
           }
         ]
       }

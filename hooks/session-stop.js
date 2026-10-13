@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * SessionStop hook — saves session state (open findings, notes) for the next session.
+ * SessionEnd hook — saves session state (open findings, notes) for the next session.
  * Reads from environment variables set by the skill during the session.
  */
 

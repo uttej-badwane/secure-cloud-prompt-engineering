@@ -1,0 +1,19 @@
+{
+  "name": "uttej-badwane",
+  "owner": {
+    "name": "Uttej Badwane",
+    "url": "https://github.com/uttej-badwane"
+  },
+  "metadata": {
+    "description": "Cloud and IaC security plugins for Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "secure-cloud-prompt-engineering",
+      "source": "./",
+      "description": "IaC security review skill, slash commands, and agents with compliance mapping to CIS, NIST, PCI-DSS, SOC 2, HIPAA, GDPR, and ISO 27001.",
+      "category": "security",
+      "tags": ["security", "iac", "terraform", "kubernetes", "compliance", "devsecops"]
+    }
+  ]
+}

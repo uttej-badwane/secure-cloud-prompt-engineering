@@ -20,8 +20,22 @@ Covers Terraform, Kubernetes, Docker, cloud-native services, CI/CD, software sup
 
 ### Install
 
+Install as a Claude Code plugin (skill, slash commands, agents, and hooks):
+
+```
+/plugin install secure-cloud-prompt-engineering --marketplace uttej-badwane/secure-cloud-prompt-engineering
+```
+
+On Claude Code versions before 2.1.275, add the marketplace first:
+
+```
+/plugin marketplace add uttej-badwane/secure-cloud-prompt-engineering
+/plugin install secure-cloud-prompt-engineering@uttej-badwane
+```
+
+Or install only the skill by hand:
+
 ```bash
-# Clone the repo and copy the skill to your Claude Code skills directory
 git clone https://github.com/uttej-badwane/secure-cloud-prompt-engineering.git
 cp -r secure-cloud-prompt-engineering/skills/iac-security-review ~/.claude/skills/
 ```
