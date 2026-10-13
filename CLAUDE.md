@@ -7,7 +7,7 @@ This file is read automatically by Claude Code. It defines how to work with this
 This repository is a **security-focused prompt and skill library** for AI-assisted Infrastructure as Code (IaC) development. It provides:
 
 - A Claude Code skill (`skills/iac-security-review/`) for automated IaC security reviews
-- 33+ markdown prompt files covering Terraform, Kubernetes, Docker, AWS, CI/CD, and more
+- 35+ markdown prompt files covering Terraform, Kubernetes, Docker, AWS, CI/CD, supply chain, AI agents, and more
 - Compliance mappings for CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR, ISO 27001
 
 ## Skill: IaC Security Review
@@ -64,6 +64,8 @@ terraform/{aws,azure,gcp,multi-cloud}/  # Terraform security prompts
 kubernetes/                    # Kubernetes, Helm, Kustomize prompts
 docker/                        # Dockerfile and Compose prompts
 aws/                           # AWS service-specific prompts
+ai/                            # AI agent, MCP and LLM platform prompts
+identity/                      # Workload identity federation prompts
 cicd/                          # GitHub Actions and GitLab CI prompts
 security/                      # Cross-cutting security topics
 ansible/                       # Ansible playbook prompts
