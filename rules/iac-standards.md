@@ -43,8 +43,22 @@ terraform {
     key            = "project/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "terraform-locks"
+    use_lockfile   = true   # native S3 locking; dynamodb_table is deprecated
   }
+}
+```
+
+### Keep Secrets Out of State (Terraform 1.11+)
+
+```hcl
+ephemeral "aws_secretsmanager_secret_version" "db" {
+  secret_id = aws_secretsmanager_secret.db.id
+}
+
+resource "aws_db_instance" "main" {
+  # ...
+  password_wo         = ephemeral.aws_secretsmanager_secret_version.db.secret_string
+  password_wo_version = 1   # bump to rotate (or use manage_master_user_password = true)
 }
 ```
 
@@ -59,6 +73,14 @@ output "db_password" {
 
 ## Kubernetes
 
+### Namespaces Must Enforce Pod Security Standards
+
+```yaml
+metadata:
+  labels:
+    pod-security.kubernetes.io/enforce: restricted
+```
+
 ### Every Deployment Must Have a securityContext
 
 ```yaml
@@ -67,6 +89,8 @@ spec:
     runAsNonRoot: true
     runAsUser: 1000
     fsGroup: 2000
+    seccompProfile:
+      type: RuntimeDefault
   containers:
     - name: app
       securityContext:
@@ -106,7 +130,7 @@ USER app
 ### Pin Base Image Digest
 
 ```dockerfile
-FROM node:20-alpine@sha256:abc123...
+FROM node:24-alpine@sha256:abc123...  # supported LTS, pinned by digest
 ```
 
 ### Use .dockerignore
@@ -127,6 +151,8 @@ node_modules
 
 ```yaml
 - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+  with:
+    persist-credentials: false
 ```
 
 ### Use Least-Privilege Permissions

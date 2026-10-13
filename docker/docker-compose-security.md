@@ -46,11 +46,11 @@ You are creating secure Docker Compose configurations for multi-container applic
 - Scan images for vulnerabilities before deployment
 - Use minimal base images (alpine, distroless)
 - Build custom images with security hardening
-- Implement image signing and verification
+- Implement image signing and verification with Sigstore cosign or Notation (Docker Content Trust / Notary v1 is being retired)
 - Configure image pull policies
 
 **Environment Variables:**
-- Use .env files for non-sensitive configuration
+- Use .env files for non-sensitive configuration only
 - Add .env to .gitignore
 - Validate environment variables in entrypoint scripts
 - Avoid exposing sensitive data in env vars
@@ -74,10 +74,9 @@ You are creating secure Docker Compose configurations for multi-container applic
 - Restrict Docker socket access
 - Use Docker Bench for Security for auditing
 - Configure audit logging for Docker events
-- Implement RBAC with Docker Enterprise if applicable
 
 **Compose File Best Practices:**
-- Use version: '3.8' or later
+- Omit the top-level version: key (it is obsolete in the Compose Specification and ignored by Docker Compose v2)
 - Organize services logically
 - Use YAML anchors for reusable configurations
 - Document service dependencies
@@ -86,7 +85,7 @@ You are creating secure Docker Compose configurations for multi-container applic
 - Configure graceful shutdown with stop_grace_period
 
 **Production Deployment:**
-- Use Docker Swarm or Kubernetes for orchestration
+- Use Kubernetes (or Docker Swarm) for production orchestration; Compose alone is best for dev and single hosts
 - Implement rolling updates with update_config
 - Configure resource reservations and limits
 - Use placement constraints for node selection

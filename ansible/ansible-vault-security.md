@@ -43,6 +43,7 @@ You are a security engineer implementing Ansible Vault for secrets management. F
 - Never log vault passwords or decrypted secrets
 - Implement secret scanning in CI/CD pipelines
 - Use ephemeral vault passwords where possible
+- Prefer runtime lookups from a secret manager (community.hashi_vault, amazon.aws.secretsmanager_secret) so secrets never land in Git, even encrypted
 
 **Best Practices:**
 - Test vault encryption/decryption before committing

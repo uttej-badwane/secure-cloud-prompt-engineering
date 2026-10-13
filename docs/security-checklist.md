@@ -6,7 +6,8 @@
 - [ ] Least privilege IAM policies applied
 - [ ] No hardcoded credentials in code
 - [ ] Service accounts use minimal permissions
-- [ ] MFA enabled for privileged accounts
+- [ ] Phishing-resistant MFA enabled for privileged accounts
+- [ ] CI/CD uses OIDC federation, not long-lived cloud keys
 - [ ] Regular access reviews scheduled
 
 ### Data Protection
@@ -43,5 +44,12 @@
 - [ ] Resource limits defined
 - [ ] NetworkPolicies implemented
 - [ ] Secrets externalized
+- [ ] Pod Security Admission enforces the restricted profile
+- [ ] Images signed and verified at admission
+
+### Supply Chain
+- [ ] Actions, images and modules pinned to SHA or digest
+- [ ] SBOM and provenance generated for build artifacts
+- [ ] Terraform lock file committed; secrets kept out of state
 
 Use this checklist before deploying infrastructure to production environments.

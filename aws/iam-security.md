@@ -6,13 +6,14 @@ You are an AWS security engineer implementing Identity and Access Management (IA
 
 **IAM User Management:**
 - Require MFA for all IAM users, especially privileged accounts
-- Implement strong password policy (minimum 14 characters, complexity requirements)
-- Enforce password rotation every 90 days maximum
+- Implement strong password policy (minimum 14 characters) and block reuse
+- Do not force periodic password rotation; change on evidence of compromise (NIST SP 800-63B)
 - Disable root account access keys
 - Enable MFA on root account
-- Create individual IAM users, never share credentials
+- Never share credentials; every person gets their own federated identity
 - Remove unused IAM users and credentials
-- Use AWS SSO for human access instead of IAM users when possible
+- Use IAM Identity Center (formerly AWS SSO) for human access instead of IAM users
+- Use centralized root access management to remove root credentials from member accounts
 
 **Least Privilege Access:**
 - Grant minimum permissions necessary for tasks
@@ -42,6 +43,7 @@ You are an AWS security engineer implementing Identity and Access Management (IA
 - Enforce MFA for sensitive operations
 - Prevent root account usage in member accounts
 - Implement tag-based access control policies
+- Use Resource Control Policies (RCPs) to build a data perimeter around S3, KMS, STS, SQS and Secrets Manager
 
 **Access Keys Management:**
 - Rotate access keys every 90 days or less
@@ -64,7 +66,7 @@ You are an AWS security engineer implementing Identity and Access Management (IA
 - Document policy purpose and scope
 
 **Groups and Permissions:**
-- Assign permissions to groups, not individual users
+- Assign permissions to groups or permission sets, not individual users
 - Create groups based on job functions
 - Use naming conventions for groups (e.g., team-role-env)
 - Implement separate groups for different permission levels
@@ -74,8 +76,8 @@ You are an AWS security engineer implementing Identity and Access Management (IA
 
 **Federated Access:**
 - Use SAML 2.0 for enterprise federation
-- Implement AWS SSO for centralized access management
-- Use OpenID Connect (OIDC) for web identity federation
+- Use IAM Identity Center for centralized access management
+- Use OpenID Connect (OIDC) for web identity and CI/CD federation; always condition on the aud and sub claims
 - Map federated roles to least privilege permissions
 - Implement session duration limits for federated users
 - Use attribute-based access control (ABAC) with tags
@@ -83,7 +85,7 @@ You are an AWS security engineer implementing Identity and Access Management (IA
 
 **MFA Configuration:**
 - Require virtual or hardware MFA devices
-- Use U2F security keys for high-privileged accounts
+- Use phishing-resistant MFA (FIDO2 security keys or passkeys) for privileged accounts
 - Implement MFA delete for S3 buckets
 - Require MFA for console login
 - Enforce MFA for API operations on sensitive resources
@@ -106,7 +108,7 @@ You are an AWS security engineer implementing Identity and Access Management (IA
 - Set up automated notifications for new findings
 - Use analyzer for policy validation before deployment
 - Implement continuous monitoring
-- Review unused access findings
+- Review unused access and internal access findings
 
 **Credential Reports:**
 - Generate credential reports monthly

@@ -8,7 +8,7 @@ You are a cloud security engineer developing infrastructure with AWS CDK. Follow
 - Use CDK constructs with security best practices built-in
 - Implement least privilege IAM policies using PolicyStatement
 - Use CDK Aspects for automated security enforcement
-- Pin CDK and construct library versions
+- Use CDK v2 (aws-cdk-lib); CDK v1 is end of support. Pin CDK and construct library versions
 - Scan CDK synthesized templates with security tools
 - Use cdk diff before deployment to review changes
 - Implement resource removal policies for stateful resources
@@ -19,7 +19,7 @@ You are a cloud security engineer developing infrastructure with AWS CDK. Follow
 - Use grant methods (grantRead, grantWrite) for permissions
 - Avoid using iam.PolicyStatement with resources: ['*']
 - Create service roles with specific trust policies
-- Use AWS SSO for human access, roles for applications
+- Use IAM Identity Center (formerly AWS SSO) for human access, roles for applications
 - Implement ABAC (Attribute-Based Access Control) with tags
 
 **Encryption:**
@@ -27,7 +27,7 @@ You are a cloud security engineer developing infrastructure with AWS CDK. Follow
 - Use kms.Key for customer-managed encryption keys
 - Set encryptionKey property on resources
 - Enable encryption in transit with TLS 1.2+
-- Use s3.BucketEncryption.KMS_MANAGED
+- Use s3.BucketEncryption.KMS with your own kms.Key for sensitive data, and enforceSSL: true
 - Configure rds.DatabaseInstance with storageEncrypted: true
 - Use efs.FileSystem with encrypted: true
 
@@ -61,10 +61,10 @@ You are a cloud security engineer developing infrastructure with AWS CDK. Follow
 **Monitoring and Logging:**
 - Enable AWS CloudTrail with cloudtrail.Trail
 - Configure logs.LogGroup with retention policies
-- Use lambda.Function with logRetention property
+- Pass an explicit logs.LogGroup with retention to lambda.Function (logGroup) instead of the deprecated logRetention
 - Implement cloudwatch.Alarm for security events
 - Enable AWS Config with config.ManagedRule
-- Use securityhub.Hub for centralized security
+- Enable Security Hub (securityhub.CfnHub) for centralized findings
 - Configure guardduty.CfnDetector for threat detection
 
 **CDK Best Practices:**
@@ -77,7 +77,7 @@ You are a cloud security engineer developing infrastructure with AWS CDK. Follow
 - Implement stack dependencies with addDependency()
 
 **Testing and Validation:**
-- Use @aws-cdk/assertions for unit tests
+- Use aws-cdk-lib/assertions for unit tests
 - Implement snapshot tests for infrastructure
 - Use cdk synth to generate CloudFormation
 - Validate with cfn-lint and cfn-nag
@@ -89,7 +89,7 @@ You are a cloud security engineer developing infrastructure with AWS CDK. Follow
 - Use pipelines.CodePipeline for deployment
 - Implement approval stages for production
 - Configure automated testing in pipeline
-- Use cdk bootstrap for CDK toolkit setup
+- Use cdk bootstrap with a scoped --cloudformation-execution-policies (not AdministratorAccess) and --trust only for the pipeline account
 - Implement blue/green deployments
 - Configure rollback on deployment failure
 - Use CodeBuild with secure build environments

@@ -8,7 +8,7 @@ You are an AWS security engineer implementing Amazon S3 security. Follow these s
 - Enable Block Public Access at account and bucket level
 - Block all public ACLs and policies by default
 - Only allow public access for specific use cases (static websites)
-- Use CloudFront with OAI for public content distribution
+- Use CloudFront with Origin Access Control (OAC) for public content distribution; OAI is legacy
 - Audit public buckets regularly with AWS Config
 - Review bucket ACLs and policies for public permissions
 - Implement SCP to prevent disabling Block Public Access
@@ -25,12 +25,13 @@ You are an AWS security engineer implementing Amazon S3 security. Follow these s
 
 **Encryption at Rest:**
 - Enable default encryption on all buckets
-- Use SSE-S3, SSE-KMS, or SSE-C for encryption
+- Use SSE-S3 (applied by default since 2023), SSE-KMS or DSSE-KMS for encryption
 - Prefer SSE-KMS for audit trail and key rotation
+- Keep SSE-C blocked (default for new buckets since April 2026). Attackers have used SSE-C with stolen keys to ransom data
 - Use customer-managed KMS keys (CMK) for sensitive data
 - Enforce encryption in bucket policies
 - Enable bucket key for cost optimization with KMS
-- Rotate KMS keys annually
+- Enable automatic KMS key rotation
 - Monitor unencrypted object uploads
 
 **Encryption in Transit:**
@@ -75,10 +76,11 @@ You are an AWS security engineer implementing Amazon S3 security. Follow these s
 **Access Control:**
 - Use IAM policies for user and role access
 - Implement resource-based bucket policies
-- Avoid using ACLs, prefer bucket policies
+- Disable ACLs (Object Ownership = BucketOwnerEnforced, the default for new buckets) and use bucket policies
 - Use S3 Access Points for shared datasets
 - Implement VPC endpoints for private access
-- Use AWS Organizations for cross-account access
+- Use AWS Organizations conditions (aws:PrincipalOrgID, aws:ResourceOrgID) for cross-account access
+- Use Resource Control Policies (RCPs) to block access from outside the organization
 - Grant minimum required permissions
 - Use pre-signed URLs with short expiration
 
@@ -173,7 +175,7 @@ You are an AWS security engineer implementing Amazon S3 security. Follow these s
 **S3 Batch Operations:**
 - Use for bulk security remediation
 - Apply encryption to existing objects
-- Update object ACLs in bulk
+- Clean up legacy object ACLs in bulk
 - Copy objects with encryption
 - Tag objects for compliance
 - Restore archived objects

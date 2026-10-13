@@ -58,7 +58,7 @@ Drawn from the repo's existing prompt library and pre-deployment checklists.
 - [ ] No secrets in code repositories, config files, or environment variables
 - [ ] Secret rotation policies implemented (30–90 day rotation)
 - [ ] Secrets injected at runtime, not build time
-- [ ] Pre-commit hooks and secret scanning enabled (git-secrets, TruffleHog)
+- [ ] Pre-commit hooks and secret scanning enabled (Gitleaks, TruffleHog)
 - [ ] Access logging enabled for all secret operations
 
 ### Vulnerability Assessment
@@ -87,7 +87,8 @@ Drawn from the repo's existing prompt library and pre-deployment checklists.
 ### Compute & Networking
 - Security groups restrict ingress; avoid `cidr_blocks = ["0.0.0.0/0"]` on ports 22, 3389, 5432, 3306
 - RDS instances: `storage_encrypted = true`, `multi_az = true`, no public endpoint
-- EC2 instances: `ebs_optimized = true`, root volume encrypted, IMDSv2 enforced (`metadata_options { http_tokens = "required" }`)
+- EC2 instances: root volume encrypted, IMDSv2 enforced (`metadata_options { http_tokens = "required", http_put_response_hop_limit = 1 }`)
+- CloudFront S3 origins use Origin Access Control (OAC), not legacy OAI
 - No `default` VPC usage; custom VPC with explicit subnets
 - VPN and private connectivity reviewed; AWS PrivateLink or VPC endpoints for service access
 
@@ -97,7 +98,9 @@ Drawn from the repo's existing prompt library and pre-deployment checklists.
 - `aws_config_configuration_recorder` active
 
 ### State & Backend
-- Backend configured with encryption and DynamoDB state locking
+- Backend configured with encryption and state locking (S3: use_lockfile = true; DynamoDB locking is deprecated)
+- No secrets written to state: use ephemeral resources / write-only arguments; secret outputs marked sensitive
+- .terraform.lock.hcl committed; providers and modules pinned
 - Remote state not publicly accessible
 
 ---
@@ -110,6 +113,8 @@ Drawn from the repo's existing prompt library and pre-deployment checklists.
 - `securityContext.allowPrivilegeEscalation: false`
 - `securityContext.capabilities.drop: ["ALL"]`
 - No `privileged: true` without documented justification
+- `seccompProfile.type: RuntimeDefault` set
+- Namespace enforces Pod Security Admission `restricted`; no PodSecurityPolicy objects (removed in v1.25)
 
 ### Resource Management
 - `resources.requests` and `resources.limits` set for CPU and memory on all containers
@@ -140,7 +145,7 @@ Drawn from the repo's existing prompt library and pre-deployment checklists.
 - Multi-stage builds used to minimize final image size and attack surface
 - `.dockerignore` present and excludes `.git`, `.env`, credentials
 - No `ADD` from remote URLs — use `COPY` with verified downloads
-- Secrets not passed via `ARG` or `ENV` at build time
+- Secrets not passed via `ARG` or `ENV` at build time; use `RUN --mount=type=secret`
 - `HEALTHCHECK` instruction present
 - Unnecessary packages not installed; `--no-install-recommends` used with apt
 
@@ -151,8 +156,11 @@ Drawn from the repo's existing prompt library and pre-deployment checklists.
 - Secrets accessed via `${{ secrets.NAME }}` / GitLab CI variables, never hardcoded
 - `permissions:` block scoped to minimum required (avoid `write-all`)
 - OIDC used for cloud authentication — no long-lived access keys in secrets
-- Action versions pinned to SHA (`uses: actions/checkout@abc123...`)
-- `pull_request_target` trigger does not check out untrusted PR code
+- Action versions pinned to full commit SHA (`uses: actions/checkout@<40-char sha> # vX.Y.Z`), including security scanner actions
+- `pull_request_target` / `workflow_run` triggers do not check out untrusted PR code
+- No untrusted `${{ github.event.* }}` values interpolated directly into `run:` scripts
+- OIDC trust policies pin the `sub` claim to a specific repo and branch or environment
+- `actions/checkout` uses `persist-credentials: false`
 - Branch protection rules enforced; required reviewers for main/prod
 - Artifacts scanned for secrets before upload
 - Pipeline fails on critical/high vulnerability findings
@@ -211,7 +219,7 @@ These checks apply cross-cutting across all IaC types.
 
 ### Development & CI/CD
 - Use separate secrets for dev/staging/production environments
-- Scan repositories for exposed secrets with git-secrets, TruffleHog, GitGuardian, or detect-secrets
+- Scan repositories for exposed secrets with Gitleaks, TruffleHog, GitGuardian, or GitHub secret scanning with push protection
 - Implement pre-commit hooks to prevent accidental secret commits
 - Use temporary credentials in CI/CD pipelines
 - Rotate secrets immediately if exposure is detected or suspected
@@ -237,7 +245,7 @@ These checks apply cross-cutting across all IaC types.
 - Scan lock files and manifests for known CVEs (npm audit, pip-audit, bundler-audit)
 - Use Dependabot or Renovate for automated dependency update PRs
 - Use OWASP Dependency-Check or Snyk for package vulnerability detection
-- Monitor new vulnerabilities with WhiteSource/Mend or Sonatype Nexus IQ
+- Monitor new vulnerabilities with Mend, Sonatype Nexus IQ or OSV-Scanner
 - Fail CI builds on critical/high severity dependency vulnerabilities
 
 ### Static Application Security Testing (SAST)
@@ -260,7 +268,7 @@ These checks apply cross-cutting across all IaC types.
 - Assess software bill of materials (SBOM) for container images
 
 ### Vulnerability Management
-- Prioritize findings by severity (CVSS score) and exploitability
+- Prioritize findings by exploitability (CISA KEV, EPSS, reachability), then CVSS severity
 - Implement SLA for remediation: Critical ≤ 24h, High ≤ 7d, Medium ≤ 30d, Low ≤ 90d
 - Track vulnerability trends over time
 - Implement exception and risk acceptance workflows with documented approvals
@@ -287,19 +295,19 @@ These checks apply cross-cutting across all IaC types.
 
 | Category | Recommended Tools |
 |---|---|
-| **IaC — Terraform** | tfsec, Checkov, Terrascan, KICS |
-| **IaC — Kubernetes** | kube-score, Kubesec, kube-bench, Polaris |
-| **IaC — Dockerfile** | Trivy, Grype, Hadolint, Snyk, Clair |
-| **IaC — CloudFormation** | cfn_nag, Checkov |
-| **IaC — GitHub Actions** | actionlint, StepSecurity |
-| **IaC — General** | OPA/Conftest, Semgrep, KICS |
-| **Secrets** | TruffleHog, git-secrets, GitGuardian, detect-secrets |
-| **Cloud Posture** | Prowler (AWS), ScoutSuite (Azure/GCP), CloudSploit, Steampipe |
-| **Cloud Native** | AWS Security Hub, Azure Defender, GCP Security Command Center |
+| **IaC: Terraform** | Trivy (`trivy config`, replaces tfsec), Checkov, KICS |
+| **IaC: Kubernetes** | kube-score, Kubesec, kube-bench, Polaris, Kubescape, kubeconform |
+| **IaC: Dockerfile** | Trivy, Grype, Hadolint, Snyk, Docker Scout |
+| **IaC: CloudFormation** | cfn-lint, cfn-guard, Checkov, cfn_nag |
+| **IaC: GitHub Actions** | actionlint, zizmor, StepSecurity Harden-Runner |
+| **IaC: General** | OPA/Conftest, Semgrep, KICS |
+| **Secrets** | Gitleaks, TruffleHog, GitGuardian, GitHub secret scanning |
+| **Cloud Posture** | Prowler (AWS/Azure/GCP/K8s), ScoutSuite, Steampipe |
+| **Cloud Native** | AWS Security Hub, Microsoft Defender for Cloud, GCP Security Command Center |
 | **Dependencies** | Dependabot, OWASP Dependency-Check, Snyk, npm audit, pip-audit |
 | **SAST** | SonarQube, Semgrep, CodeQL, Bandit, GoSec, FindSecBugs |
 | **DAST** | OWASP ZAP, Burp Suite, Nuclei, Nikto |
-| **K8s Runtime** | Falco, kube-hunter, Popeye, OPA Gatekeeper |
+| **K8s Runtime** | Falco, Tetragon, Kyverno, OPA Gatekeeper |
 | **Network** | Nmap, OpenVAS, Nessus, Qualys |
 | **Compliance** | Prowler, Chef InSpec, AWS Config Rules, Azure Policy, GCP Org Policy |
 | **SIEM Integration** | Jira, ServiceNow, Splunk, Elastic SIEM |

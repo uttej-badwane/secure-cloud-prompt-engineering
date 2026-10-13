@@ -12,9 +12,11 @@ You are a cloud security engineer creating GCP infrastructure using Terraform. F
 - Enable Organization Policy constraints for guardrails
 - Use VPC Service Controls for data exfiltration prevention
 - Enable Security Command Center for threat detection
-- Block public access on Cloud Storage buckets by default
+- Block public access on Cloud Storage buckets (public_access_prevention = "enforced", uniform_bucket_level_access = true)
 - Enable object versioning on Cloud Storage buckets
-- Use Workload Identity for GKE service accounts
+- Use Workload Identity Federation for GKE and for external workloads (CI/CD, other clouds)
+- Never create service account keys; enforce iam.disableServiceAccountKeyCreation
+- Do not grant basic roles (Owner, Editor) and disable automatic Editor grants to default service accounts
 
 **Network Security:**
 - Deploy resources in private VPC networks
@@ -33,15 +35,16 @@ You are a cloud security engineer creating GCP infrastructure using Terraform. F
 - Use Cloud Asset Inventory for resource tracking
 - Implement automated backup using Cloud Scheduler and snapshots
 - Enable Binary Authorization for container image verification
-- Use Cloud Data Loss Prevention (DLP) for sensitive data discovery
+- Store images in Artifact Registry (Container Registry is shut down)
+- Use Sensitive Data Protection (formerly Cloud DLP) for sensitive data discovery
 
 **Code Quality:**
 - Use terraform fmt for formatting
 - Include variable validation and type constraints
-- Pin google and google-beta provider versions
+- Pin google and google-beta provider versions and commit .terraform.lock.hcl
 - Add meaningful descriptions to all resources
 - Output security-relevant resource IDs and names
 - Use data sources to reference existing projects and networks
 - Separate state files per environment
 
-Generate production-ready Terraform code following CIS Google Cloud Platform Foundation Benchmark.
+Generate production-ready Terraform code following the latest CIS Google Cloud Platform Foundation Benchmark (v5.0.0 as of 2026).
