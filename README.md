@@ -10,7 +10,7 @@ A collection of security-focused prompts for AI-assisted Infrastructure as Code 
 
 Prompt templates to guide AI tools in generating secure cloud infrastructure code following security best practices.
 
-Covers Terraform, Kubernetes, Docker, and cloud-native services with a focus on security controls and compliance.
+Covers Terraform, Kubernetes, Docker, cloud-native services, CI/CD, software supply chain, and AI agents with a focus on security controls and compliance.
 
 ---
 
@@ -61,9 +61,10 @@ For full details see [`skills/iac-security-review/README.md`](skills/iac-securit
 │   └── multi-cloud/   → Multi-cloud Terraform patterns
 │
 ├── ☸️  kubernetes/
-│   ├── k8s-security.md       → Kubernetes security best practices
-│   ├── helm-security.md      → Helm chart security
-│   └── kustomize-security.md → Kustomize configuration security
+│   ├── k8s-security.md                → Kubernetes security best practices
+│   ├── managed-kubernetes-security.md → EKS, AKS and GKE cluster security
+│   ├── helm-security.md               → Helm chart security
+│   └── kustomize-security.md          → Kustomize configuration security
 │
 ├── 🐳 docker/
 │   ├── dockerfile-security.md      → Dockerfile security hardening
@@ -72,7 +73,21 @@ For full details see [`skills/iac-security-review/README.md`](skills/iac-securit
 ├── ☁️  aws/
 │   ├── aws-cli-security.md         → AWS CLI secure usage
 │   ├── cloudformation-security.md  → CloudFormation templates
-│   └── cdk-security.md             → AWS CDK security patterns
+│   ├── cdk-security.md             → AWS CDK security patterns
+│   ├── control-tower-security.md   → Multi-account governance
+│   ├── data-perimeter-security.md  → SCPs, RCPs and VPC endpoint policies
+│   ├── ec2-security.md             → EC2 and IMDS hardening
+│   ├── iam-security.md             → IAM and Identity Center
+│   ├── lambda-serverless-security.md → Lambda and API Gateway
+│   ├── s3-security.md              → S3 data protection
+│   └── vpc-security.md             → VPC network security
+│
+├── 🤖 ai/
+│   ├── ai-agent-mcp-security.md       → AI agents and MCP servers
+│   └── llm-cloud-platform-security.md → Bedrock, Vertex AI, Azure AI Foundry
+│
+├── 🪪 identity/
+│   └── workload-identity-federation.md → OIDC federation for CI/CD and workloads
 │
 ├── ⚙️  ansible/
 │   ├── ansible-security.md       → Ansible playbook security
@@ -89,7 +104,10 @@ For full details see [`skills/iac-security-review/README.md`](skills/iac-securit
 │   ├── iac-security-review.md    → IaC security review checklist
 │   ├── secret-management.md      → Secrets management strategies
 │   ├── compliance-frameworks.md  → CIS, NIST, PCI-DSS, SOC2, HIPAA, GDPR
-│   └── vulnerability-scanning.md → Vulnerability scanning tools and practices
+│   ├── vulnerability-scanning.md → Vulnerability scanning tools and practices
+│   ├── supply-chain-security.md  → Pinning, SLSA, SBOM and signing
+│   ├── cloud-incident-response.md → Leaked keys, compromised compute, runbooks
+│   └── cloud-threat-modeling.md  → STRIDE and ATT&CK threat models
 │
 └── 📚 docs/
     └── security-checklist.md → Security best practices checklist
@@ -112,6 +130,8 @@ For full details see [`skills/iac-security-review/README.md`](skills/iac-securit
 
 - **Security-first approach** - Emphasizes least privilege, defense-in-depth, and security controls
 - **Multi-cloud support** - AWS, Azure, and GCP
+- **AI security** - AI agents, MCP servers, and managed LLM platforms
+- **Supply chain** - Pinning, provenance, SBOM, and signing
 - **Compliance frameworks** - CIS benchmarks, NIST, PCI-DSS
 - **Production patterns** - Enterprise security configurations
 
