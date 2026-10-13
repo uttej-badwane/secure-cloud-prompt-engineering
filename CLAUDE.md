@@ -7,7 +7,7 @@ This file is read automatically by Claude Code. It defines how to work with this
 This repository is a **security-focused prompt and skill library** for AI-assisted Infrastructure as Code (IaC) development. It provides:
 
 - A Claude Code skill (`skills/iac-security-review/`) for automated IaC security reviews
-- 35+ markdown prompt files covering Terraform, Kubernetes, Docker, AWS, CI/CD, supply chain, AI agents, and more
+- 130+ markdown prompt files covering AWS, Azure, GCP, Kubernetes, containers, Terraform and other IaC, CI/CD, identity, network, monitoring, security programs, AI, SaaS, Python, and code quality
 - Compliance mappings for CIS, NIST 800-53, NIST 800-171, PCI-DSS, SOC 2, HIPAA, GDPR, ISO 27001
 
 ## Skill: IaC Security Review
@@ -60,17 +60,18 @@ rules/                         # Always-follow guidelines
 hooks/                         # Session lifecycle scripts
   hooks.json                   # Hook configuration
 
-terraform/{aws,azure,gcp,multi-cloud}/  # Terraform security prompts
-kubernetes/                    # Kubernetes, Helm, Kustomize prompts
-docker/                        # Dockerfile and Compose prompts
-aws/                           # AWS service-specific prompts
-ai/                            # AI agent, MCP and LLM platform prompts
-identity/                      # Workload identity federation prompts
-cicd/                          # GitHub Actions and GitLab CI prompts
-security/                      # Cross-cutting security topics
-ansible/                       # Ansible playbook prompts
-monitoring/                    # Logging and observability prompts
-docs/                          # Documentation and checklists
+terraform/                     # Terraform prompts (per cloud, multi-cloud, general)
+iac/                           # Pulumi and Crossplane prompts
+aws/  azure/  gcp/             # Cloud service prompts
+kubernetes/  docker/           # Kubernetes and container prompts
+cicd/  ansible/                # CI/CD and configuration management prompts
+identity/  network/            # Identity and network security prompts
+monitoring/                    # Logging, detection, and observability prompts
+security/                      # Cross-cloud security program prompts
+ai/  saas/                     # AI/LLM and SaaS security prompts
+python/  code-quality/         # Python and code quality prompts
+docs/                          # Checklist and prompt template
+scripts/build_index.py         # Generates each folder's README.md index
 ```
 
 ## Key Rules
